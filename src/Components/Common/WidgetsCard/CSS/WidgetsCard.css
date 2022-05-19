@@ -1,0 +1,99 @@
+
+.widgetsCardData-cardContainer {
+    height: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background-color: white;
+    transition: color 0.5s ease 0s;
+    margin: 10px 0;
+    color: #4f4d5c;
+    border: 1px solid rgba(149, 157, 165, 0.2);
+    box-shadow: 2px -4px 0 rgba(142, 142, 142, 0.59);
+    border-radius: 10px;
+    justify-content: space-evenly;
+}
+
+
+.widgetsCardData-cardImage {
+    display: flex;
+    align-items: center;
+}
+
+.widgetsCardData-missionImage {
+    width: 200px;
+    height: 200px;
+}
+
+.widgetsCardData-cardTitle {
+    align-items: center;
+    margin-bottom: 10px;
+    z-index: 1;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.widgetsCardData-detailsSection {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap : 10px;
+    margin : 10px auto;
+}
+
+.widgetsCardData-detailsLabel {
+    font-weight : 600;
+    font-size : 19px;
+}
+
+.widgetsCardData-detailsValue {
+    font-size : 19px;
+}
+
+.widgetsCardData-detailsButtonGroup {
+    margin: 20px auto;
+    text-align : center;
+}
+
+.widgetsCardData-detailsButton {
+    padding: 5px;
+    width : 150px;
+    font-size: 1.1rem;
+    border: 2px solid #277DFD;
+    background-color: white;
+    color: #277DFD;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.widgetsCardData-detailsButton:hover {
+    background-color: #277DFD;
+    color: white;
+    cursor : pointer;
+    transition: 0.2s linear;
+}
+
+
+.widgetsCardData-cardContainer:before {
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 50%;
+    position: absolute;
+    left: -50%;
+    top: 0;
+    transform: scale(0);
+    transition: transform 0.8s ease 0s;
+}
+
+.widgetsCardData-cardContainer:hover {
+    cursor : default;
+    color: #277DFD;
+    box-shadow: 2px -4px 0 #277DFD;
+}
+
+.widgetsCardData-cardContainer:hover::before {
+    transform: scale(3);
+}

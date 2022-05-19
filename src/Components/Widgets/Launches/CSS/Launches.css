@@ -1,0 +1,29 @@
+.launchData-container {
+    display: flex;
+    grid-template-columns: 1fr;
+    width: 100vw;
+    height: 100%;
+}
+
+.launchData-listContainer {
+    overflow: auto;
+    display: grid;
+    width : 100%;
+    justify-content: center;
+    margin: 0 auto;
+    grid-template-columns:600px 600px;
+    justify-self: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+.launchData-listItemPreview {
+    background-color : lavender;
+}
+
+
+@media only screen and (max-width: 770px) {
+    .launchData-listContainer {
+        grid-template-columns: 680px;
+    }
+}

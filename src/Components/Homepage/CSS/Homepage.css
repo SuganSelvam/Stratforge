@@ -1,0 +1,5 @@
+.homepage {
+    width: 100vw;
+    height: calc(100vh - 82px);
+    background-size : cover;
+}
