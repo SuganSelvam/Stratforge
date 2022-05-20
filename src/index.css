@@ -26,3 +26,21 @@ body {
 ::-webkit-scrollbar-corner {
   background: #000;
 }
+
+.cardContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background-color: white;
+  transition: color 0.5s ease 0s;
+  margin: 10px 0;
+  color: #4f4d5c;
+  border: 1px solid rgba(149, 157, 165, 0.2);
+  box-shadow: 2px -4px 0 rgba(142, 142, 142, 0.59);
+  border-radius: 10px;
+  justify-content: space-evenly;
+}

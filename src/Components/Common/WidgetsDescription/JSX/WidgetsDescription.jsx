@@ -1,135 +1,59 @@
 import {useEffect, useState} from "react";
 import * as utils from "../../../../Utils/Utils";
 import "../CSS/WidgetsDescription.css"
-
+import {arrayParser, objectParser} from "../../../../Utils/Utils";
+import WidgetsCard from "../../WidgetsCard/JSX/WidgetsCard";
+import DescriptionCard from "./DescriptionCard";
 
 function WidgetsDescription(props) {
 
 	const API_URI = props.API_URI;
 	const queryPath = props.queryPath;
-	const [WidgetsDescriptionData, setWidgetsDescriptionData] = useState({});
+	const [widgetsDescriptionData, setWidgetsDescriptionData] = useState({});
+	const [formattedData, setFormattedData] = useState({});
 
 
 	useEffect(() => {
 		loadData();
 	}, [])
 
+	useEffect(() => {
+		formatData();
+	},[widgetsDescriptionData])
+
 	function loadData() {
-		fetch(API_URI + "/" + queryPath).then(response => response.json()).then(data => setWidgetsDescriptionData(data))
+		 fetch(API_URI + "/" + queryPath).then(response => response.json()).then(data => setWidgetsDescriptionData(data))
 	}
 
-	const renderValuesFromArray = (array, arrayName) => {
-		return (
-			array?.map((element, idx) => {
-				if (typeof element === 'string' && element.includes("http") && !element.includes(".jpg")) {
-					return (
-						<div className='widgetsDescriptionItem-detailSection' key={idx}>
-							<div
-								className='widgetsDescriptionItem-detailLabel'>{utils.stringCaseConvert(arrayName, "_")} : {idx}</div>
-							<a className='widgetsDescriptionItem-detailValue' rel='noreferrer' href={element}
-							   target='_blank'>{element}</a>
-						</div>
-					)
-				} else if (typeof element === 'string' && element.includes(".jpg")) {
-					return (
-						<>
-							<img className='image-container' src={element} alt={arrayName + "_" + idx}/>
-						</>
-
-					)
-				} else if (typeof element === 'object')
-					return (
-						<div className="">
-							{renderValuesFromObject(element)}
-						</div>
-					)
-			})
-		)
+	function formatData(){
+		var tempObject = {};
+		var stringData = {};
+		Object.keys(widgetsDescriptionData).forEach((item, index) => {
+			if (typeof widgetsDescriptionData[item] === "string" || typeof widgetsDescriptionData[item] === "number") {
+				stringData[item] = widgetsDescriptionData[item];
+			}
+			if (widgetsDescriptionData[item] != null && typeof widgetsDescriptionData[item] === "object" && !Array.isArray(widgetsDescriptionData[item])) {
+				var result = objectParser(widgetsDescriptionData[item]);
+				tempObject[item] = result;
+			}
+			if (Array.isArray(widgetsDescriptionData[item])) {
+				tempObject[item]= arrayParser(widgetsDescriptionData[item],item)
+			}
+		})
+		tempObject['basic_details'] = stringData
+		setFormattedData(tempObject);
 	}
 
-
-	const renderValuesFromObject = (object) => {
-		return (
-			object && Object.keys(object)?.map((element, index) => {
-				if (typeof object[element] === 'string' || typeof object[element] === 'number' && !Array.isArray(object[element])) {
-					return (
-						<div className='widgetsDescriptionItem-detailSection' key={index}>
-							<div
-								className='widgetsDescriptionItem-detailLabel'>{utils.stringCaseConvert(element, "_")}</div>
-							{
-								typeof object[element] === 'string' && object[element].includes("http") ?
-									<a className='widgetsDescriptionItem-detailValue' rel='noreferrer'
-									   href={object[element]}
-									   target='_blank'>{object[element]}</a>
-									: <div className='widgetsDescriptionItem-detailValue'>{object[element]}</div>
-							}
-						</div>
-					)
-				} else if (Array.isArray(object[element])){
-					return (
-						renderValuesFromArray(object[element],element)
-					)
-				} else if (typeof object[element] === 'object') {
-					return (
-						renderValuesFromObject(object[element])
-					)
-				}
-			})
-		);
-	};
 
 	return (
 		<div className='widgetsDescriptionItem-container'>
-			<div className='widgetsDescriptionItem-subTitle'>Basic Details & Description</div>
 			{
-				Object.keys(WidgetsDescriptionData)?.map((data, index) => {
-					if (typeof WidgetsDescriptionData[data] === "string" || typeof WidgetsDescriptionData[data] === "boolean" || typeof WidgetsDescriptionData[data] === "number") {
-						return (
-							<div className='widgetsDescriptionItem-detailSection' key={index}>
-								<div
-									className='widgetsDescriptionItem-detailLabel'>{utils.stringCaseConvert(data, "_")}</div>
-								<div
-									className='widgetsDescriptionItem-detailValue'>{WidgetsDescriptionData[data].toString()}</div>
-							</div>
-						)
-					}
-
+				Object.keys(formattedData)?.sort().map((data,index) => {
+					return (
+						<DescriptionCard key={index} data={data} formattedData={formattedData} />
+					)
 				})
 			}
-			<div className='widgetsDescriptionItem-subTitle'>Other Details & Description</div>
-			{
-				Object.keys(WidgetsDescriptionData)?.map((data, index) => {
-					if (Array.isArray(WidgetsDescriptionData[data]) && WidgetsDescriptionData[data].length > 0) {
-						return (
-							<>
-								<div className='widgetsDescriptionItem-detailSubtitle'
-								     key={index}>{utils.stringCaseConvert(data, "_")}</div>
-								{
-									renderValuesFromArray(WidgetsDescriptionData[data], data)
-								}
-							</>
-						)
-					}
-
-				})
-			}
-			{
-				Object.keys(WidgetsDescriptionData)?.map((data, index) => {
-					if (typeof WidgetsDescriptionData[data] === "object" && !Array.isArray(WidgetsDescriptionData[data]) && WidgetsDescriptionData[data] != null && WidgetsDescriptionData[data].length !== 0) {
-						return (
-							<>
-								<br/>
-								<div className='widgetsDescriptionItem-detailSubtitle'
-								     key={index}>{utils.stringCaseConvert(data, "_")}</div>
-								{
-									renderValuesFromObject(WidgetsDescriptionData[data])
-								}
-							</>
-						)
-					}
-				})
-			}
-
 		</div>
 	)
 }

@@ -14,7 +14,7 @@ function WidgetsCard(props) {
 	}
 
 	return (
-		<div className="widgetsCardData-cardContainer">
+		<div className="widgetsCardData-cardContainer cardContainer">
 			<div className="widgetsCardData-cardTitle">
 				{title} Details :
 			</div>

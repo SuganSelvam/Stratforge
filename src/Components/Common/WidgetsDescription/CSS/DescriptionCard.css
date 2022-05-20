@@ -1,0 +1,49 @@
+.descriptionCard-cardContainer {
+    height: 100%;
+    width : 100%;
+    margin: 20px auto 40px auto;
+}
+
+.descriptionCard-subTitle {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+.descriptionCard-cardDetail {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    width: 90%;
+    margin: 10px auto;
+    gap: 50px;
+    align-items: center;
+}
+
+.descriptionCard-cardLabel {
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, 0.9);
+    font-weight: 700;
+}
+
+.descriptionCard-cardValue {
+    text-align: center;
+    font-size: 1.1rem;
+    align-items: center;
+}
+
+.descriptionCard-cardImageDetail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.descriptionCard-cardImage {
+    margin: 0 auto;
+    width: 80%;
+    height: 200px;
+}
